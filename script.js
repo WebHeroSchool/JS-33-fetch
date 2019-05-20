@@ -4,7 +4,6 @@ let userName = searchParams.get('username');
         fetch(`https://api.github.com/users/${userName}`)
         .then(response => response.json())
         .then(json => {
-            console.log(json);
             if (json.message !== 'Not Found') {
                 let name = document.createElement('a');
                 name.setAttribute('href', json.html_url);
@@ -20,10 +19,13 @@ let userName = searchParams.get('username');
                 document.body.appendChild(avatar);
             } else {
                 let p = document.createElement('p');
-                p.innerHTML =  'Информация о пользователе не доступна';
+                p.innerHTML =  'Информация о пользователе недоступна';
                 document.body.appendChild(p);
             }
         })
+        .catch(error => {
+            alert(error);
+        });
     } else {
         alert('Введите данные в URL');
     }
